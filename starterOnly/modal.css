@@ -14,7 +14,7 @@ body {
 	margin: 0;
 	display: flex;
 	flex-direction: column;
-	background-image: url('background.png');
+	/* background-image: url('background.png'); */
 	font-family: var(--font-default);
 	font-size: 18px;
 	max-width: 1300px;
@@ -164,8 +164,8 @@ main {
 	position: fixed;
 	z-index: 1;
 	left: 0;
-	top: 0;
-	height: 100%;
+	top: -10px;
+	height: 110%;
 	width: 100%;
 	overflow: auto;
 	background-color: rgba(26, 39, 156, 0.4);
@@ -438,7 +438,7 @@ input[data-error]::after {
 	z-index: 1;
 }
 .hero-headline {
-	font-size: 6rem;
+	font-size: 9.8vw;
 	font-weight: normal;
 	white-space: nowrap;
 }
@@ -464,6 +464,7 @@ input[data-error]::after {
 	height: 100%;
 	display: block;
 	padding: 0;
+	object-fit: cover;
 }
 .copyrights {
 	color: #fe142f;
@@ -526,5 +527,18 @@ footer {
 	}
 	to {
 		opacity: 1;
+	}
+}
+
+@keyframes modalclose {
+	0% {
+		opacity: 1;
+	}
+	10% {
+		transform: translateY(10px);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-150px);
 	}
 }
