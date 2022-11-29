@@ -78,7 +78,29 @@ function validate(e) {
 	!numberOfTimesValidation() ? (readyToSend = false) : (readyToSend = true)
 	!locationValidation() ? !(readyToSend = false) : (readyToSend = true)
 
-	readyToSend ? console.log('ready !') : console.log('no you not ready')
+	if (readyToSend) {
+		form.style.display = 'none'
+		readyToSend = false
+		// confirm message
+		const parag = document.createElement('p')
+		parag.textContent = 'Merci pour votre inscription'
+		parag.classList.add('confim_msg')
+		form.insertAdjacentElement('afterend', parag)
+
+		// close modal button
+		const btn = document.createElement('button')
+		btn.classList.add('btn-close')
+		btn.textContent = 'Fermer'
+		modalBody.appendChild(btn)
+		btn.addEventListener('click', () => {
+			closeModal()
+			setTimeout(() => {
+				form.style.display = 'block'
+				form.reset()
+				location.reload()
+			}, 852)
+		})
+	}
 }
 
 // firstName validation
@@ -177,6 +199,9 @@ function clearError(element) {
 		elem.parentNode.removeChild(elem)
 	})
 }
+
+// reset form
+function resetForm() {}
 
 // error messages
 const errorMsgObj = {
