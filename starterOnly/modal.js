@@ -13,6 +13,7 @@ const modalBtn = document.querySelectorAll('.modal-btn')
 const formData = document.querySelectorAll('.formData')
 const closeBtn = document.querySelector('.close')
 const modalContent = document.querySelector('.content')
+const modalBody = document.querySelector('.modal-body')
 
 // form elements
 const form = document.querySelector('form')
@@ -23,7 +24,6 @@ const birthdate = document.querySelector('#birthdate')
 const numberOfTimes = document.querySelector('#quantity')
 const radioLocationArray = document.querySelectorAll("input[type='radio']")
 const conditions = document.querySelector('#checkbox1')
-const modalBody = document.querySelector('.modal-body')
 
 /* EVENT LISTENERS  */
 // launch modal event
@@ -54,8 +54,6 @@ radioLocationArray.forEach((location) => {
 function launchModal() {
 	modalbg.style.display = 'block'
 }
-// add unfocus to check
-/// -------------------
 
 // close modal
 function closeModal() {
