@@ -1,68 +1,68 @@
 function editNav() {
-	var x = document.getElementById('myTopnav')
-	if (x.className === 'topnav') {
-		x.className += ' responsive'
+	var x = document.getElementById("myTopnav")
+	if (x.className === "topnav") {
+		x.className += " responsive"
 	} else {
-		x.className = 'topnav'
+		x.className = "topnav"
 	}
 }
 
 // DOM Elements
-const modalbg = document.querySelector('.bground')
-const modalBtn = document.querySelectorAll('.modal-btn')
-const formData = document.querySelectorAll('.formData')
-const closeBtn = document.querySelector('.close')
-const modalContent = document.querySelector('.content')
-const modalBody = document.querySelector('.modal-body')
+const modalbg = document.querySelector(".bground")
+const modalBtn = document.querySelectorAll(".modal-btn")
+const formData = document.querySelectorAll(".formData")
+const closeBtn = document.querySelector(".close")
+const modalContent = document.querySelector(".content")
+const modalBody = document.querySelector(".modal-body")
 
 // form elements
-const form = document.querySelector('form')
-const firstName = document.querySelector('#first')
-const lastName = document.querySelector('#last')
-const email = document.querySelector('#email')
-const birthdate = document.querySelector('#birthdate')
-const numberOfTimes = document.querySelector('#quantity')
+const form = document.querySelector("form")
+const firstName = document.querySelector("#first")
+const lastName = document.querySelector("#last")
+const email = document.querySelector("#email")
+const birthdate = document.querySelector("#birthdate")
+const numberOfTimes = document.querySelector("#quantity")
 const radioLocationArray = document.querySelectorAll("input[type='radio']")
-const conditions = document.querySelector('#checkbox1')
+const conditions = document.querySelector("#checkbox1")
 
 /* EVENT LISTENERS  */
 // launch modal event
-modalBtn.forEach((btn) => btn.addEventListener('click', launchModal))
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal))
 
 // listens to the click on the close btn
-closeBtn.addEventListener('click', closeModal)
+closeBtn.addEventListener("click", closeModal)
 
 // listens for form submission
-form.addEventListener('submit', (e) => validate(e))
+form.addEventListener("submit", (e) => validate(e))
 
 // form listerners
-firstName.addEventListener('change', () => firstNameValidation())
+firstName.addEventListener("change", () => firstNameValidation())
 
-lastName.addEventListener('change', () => lastNameValidation())
+lastName.addEventListener("change", () => lastNameValidation())
 
-email.addEventListener('change', () => emailValidation())
+email.addEventListener("change", () => emailValidation())
 
-birthdate.addEventListener('change', () => birthDateValidation())
+birthdate.addEventListener("change", () => birthDateValidation())
 
-numberOfTimes.addEventListener('change', () => numberOfTimesValidation())
+numberOfTimes.addEventListener("change", () => numberOfTimesValidation())
 
-conditions.addEventListener('change', () => conditionsValidation())
+conditions.addEventListener("change", () => conditionsValidation())
 
 radioLocationArray.forEach((location) => {
-	location.addEventListener('change', () => locationValidation())
+	location.addEventListener("change", () => locationValidation())
 })
 
 // launch modal form
 function launchModal() {
-	modalbg.style.display = 'block'
+	modalbg.style.display = "block"
 }
 
 // close modal
 function closeModal() {
-	modalbg.style.animation = 'modalclose 650ms ease-in-out'
+	modalbg.style.animation = "modalclose 650ms ease-in-out"
 	setTimeout(() => {
-		modalbg.style.display = 'none'
-		modalbg.style.animation = 'modalopen 850ms'
+		modalbg.style.display = "none"
+		modalbg.style.animation = "modalopen 850ms"
 	}, 655)
 }
 
@@ -70,33 +70,46 @@ function closeModal() {
 function validate(e) {
 	e.preventDefault()
 	let readyToSend = false
-	firstNameValidation() ? true : readyToSend
 
-	!lastNameValidation() ? (readyToSend = false) : (readyToSend = true)
-	!emailValidation() ? (readyToSend = false) : (readyToSend = true)
-	!birthDateValidation() ? (readyToSend = false) : (readyToSend = true)
-	!numberOfTimesValidation() ? (readyToSend = false) : (readyToSend = true)
-	!locationValidation() ? (readyToSend = false) : (readyToSend = true)
-	!conditionsValidation() ? (readyToSend = false) : (readyToSend = true)
+	//firstNameValidation() ? true : readyToSend
+	// !lastNameValidation() ? (readyToSend = false) : (readyToSend = true)
+	// !emailValidation() ? (readyToSend = false) : (readyToSend = true)
+	// !birthDateValidation() ? (readyToSend = false) : (readyToSend = true)
+	// !numberOfTimesValidation() ? (readyToSend = false) : (readyToSend = true)
+	// !locationValidation() ? (readyToSend = false) : (readyToSend = true)
+	// !conditionsValidation() ? (readyToSend = false) : (readyToSend = true)
 
+	if (
+		!firstNameValidation() ||
+		!lastNameValidation() ||
+		!emailValidation() ||
+		!birthDateValidation() ||
+		!numberOfTimesValidation() ||
+		!locationValidation() ||
+		!conditionsValidation()
+	) {
+		readyToSend = false
+	} else {
+		readyToSend = true
+	}
 	if (readyToSend) {
-		form.style.display = 'none'
+		form.style.display = "none"
 		readyToSend = false
 		// confirm message
-		const parag = document.createElement('p')
-		parag.textContent = 'Merci pour votre inscription'
-		parag.classList.add('confim_msg')
-		form.insertAdjacentElement('afterend', parag)
+		const parag = document.createElement("p")
+		parag.textContent = "Merci pour votre inscription"
+		parag.classList.add("confim_msg")
+		form.insertAdjacentElement("afterend", parag)
 
 		// close modal button
-		const btn = document.createElement('button')
-		btn.classList.add('btn-close')
-		btn.textContent = 'Fermer'
+		const btn = document.createElement("button")
+		btn.classList.add("btn-close")
+		btn.textContent = "Fermer"
 		modalBody.appendChild(btn)
-		btn.addEventListener('click', () => {
+		btn.addEventListener("click", () => {
 			closeModal()
 			setTimeout(() => {
-				form.style.display = 'block'
+				form.style.display = "block"
 				form.reset()
 				// location.reload()
 				readyToSend = false
@@ -109,6 +122,7 @@ function validate(e) {
 function firstNameValidation() {
 	if (!firstName.value || firstName.value.trim().length < 2) {
 		errorMsg(errorMsgObj.firstNameError, firstName)
+		return false
 	} else {
 		clearError(firstName)
 		return true
@@ -119,6 +133,7 @@ function firstNameValidation() {
 function lastNameValidation() {
 	if (!lastName.value || lastName.value.trim().length < 2) {
 		errorMsg(errorMsgObj.lastNameError, lastName)
+		return false
 	} else {
 		clearError(lastName)
 		return true
@@ -128,7 +143,7 @@ function lastNameValidation() {
 // email validation
 const emailFormat = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/
 function emailValidation() {
-	if (email.value === '' || emailFormat.test(email.value) === false) {
+	if (email.value === "" || emailFormat.test(email.value) === false) {
 		errorMsg(errorMsgObj.emailError, email)
 		// console.log('not passeed')
 	} else {
@@ -142,6 +157,7 @@ function emailValidation() {
 function birthDateValidation() {
 	if (!birthdate.value) {
 		errorMsg(errorMsgObj.birthdateError, birthdate)
+		return false
 	} else {
 		clearError(birthdate)
 		return true
@@ -152,6 +168,7 @@ function birthDateValidation() {
 function numberOfTimesValidation() {
 	if (!numberOfTimes.value) {
 		errorMsg(errorMsgObj.concoursError, numberOfTimes)
+		return false
 	} else {
 		clearError(numberOfTimes)
 		return true
@@ -168,10 +185,12 @@ function locationValidation() {
 	if (locations.length === 0) {
 		errorMsg(
 			errorMsgObj.locationError,
-			document.querySelectorAll('.formData')[5]
+			document.querySelectorAll(".formData")[5]
 		)
+
+		return false
 	} else {
-		document.querySelectorAll('.formData')[5].style.border = 'none'
+		document.querySelectorAll(".formData")[5].style.border = "none"
 		return true
 	}
 }
@@ -180,6 +199,7 @@ function locationValidation() {
 function conditionsValidation() {
 	if (!conditions.checked) {
 		errorMsg(errorMsgObj.conditionsError, conditions)
+		return false
 	} else {
 		clearError(conditions)
 		return true
@@ -190,23 +210,23 @@ function conditionsValidation() {
 // expects a string and a DOM element
 // after 2.5 secs celars the error from the DOM
 function errorMsg(msg, element) {
-	const cont = document.createElement('span')
-	element.style.border = '2px solid #fe142f'
-	cont.classList.add('error_msg')
+	const cont = document.createElement("span")
+	element.style.border = "2px solid #fe142f"
+	cont.classList.add("error_msg")
 	cont.innerText = msg
 	// checks if there is an error and erases it
 	element.nextSibling.childNodes.length === 0
 		? element
 		: element.parentNode.removeChild(element.nextSibling)
-	element.insertAdjacentElement('afterend', cont)
+	element.insertAdjacentElement("afterend", cont)
 	element.focus()
 }
 
 // eliminates error message
 // expects a DOM element
 function clearError(element) {
-	element.style.border = '2px solid #4caf50'
-	const errorElemArray = document.querySelectorAll('.error_msg ')
+	element.style.border = "2px solid #4caf50"
+	const errorElemArray = document.querySelectorAll(".error_msg ")
 	errorElemArray.forEach((elem) => {
 		elem.parentNode.removeChild(elem)
 	})
@@ -218,12 +238,12 @@ function resetForm() {}
 // error messages
 const errorMsgObj = {
 	firstNameError:
-		'Le champ prénom ne peut pas être vide ou au moins avec deux caractères ',
+		"Le champ prénom ne peut pas être vide ou au moins avec deux caractères ",
 	lastNameError:
-		'Le champ nom ne peut pas être vide ou au moins avec deux caractères',
+		"Le champ nom ne peut pas être vide ou au moins avec deux caractères",
 	emailError: "L'adresse email est invalide ou vide",
-	birthdateError: 'La date de naissance est invalide.',
-	concoursError: 'Veuillez entrer un nombre valide entre 0 et 99.',
-	locationError: 'Vous devez sélectionner une ville.',
+	birthdateError: "La date de naissance est invalide.",
+	concoursError: "Veuillez entrer un nombre valide entre 0 et 99.",
+	locationError: "Vous devez sélectionner une ville.",
 	conditionsError: "Vous devez accepter les conditions d'utilisations.",
 }
