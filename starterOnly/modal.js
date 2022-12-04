@@ -46,6 +46,8 @@ birthdate.addEventListener('change', () => birthDateValidation())
 
 numberOfTimes.addEventListener('change', () => numberOfTimesValidation())
 
+conditions.addEventListener('change', () => conditionsValidation())
+
 radioLocationArray.forEach((location) => {
 	location.addEventListener('change', () => locationValidation())
 })
@@ -74,7 +76,8 @@ function validate(e) {
 	!emailValidation() ? (readyToSend = false) : (readyToSend = true)
 	!birthDateValidation() ? (readyToSend = false) : (readyToSend = true)
 	!numberOfTimesValidation() ? (readyToSend = false) : (readyToSend = true)
-	!locationValidation() ? !(readyToSend = false) : (readyToSend = true)
+	!locationValidation() ? (readyToSend = false) : (readyToSend = true)
+	!conditionsValidation() ? (readyToSend = false) : (readyToSend = true)
 
 	if (readyToSend) {
 		form.style.display = 'none'
@@ -95,7 +98,8 @@ function validate(e) {
 			setTimeout(() => {
 				form.style.display = 'block'
 				form.reset()
-				location.reload()
+				// location.reload()
+				readyToSend = false
 			}, 852)
 		})
 	}
@@ -168,6 +172,16 @@ function locationValidation() {
 		)
 	} else {
 		document.querySelectorAll('.formData')[5].style.border = 'none'
+		return true
+	}
+}
+
+//conditions d'utilisations
+function conditionsValidation() {
+	if (!conditions.checked) {
+		errorMsg(errorMsgObj.conditionsError, conditions)
+	} else {
+		clearError(conditions)
 		return true
 	}
 }
